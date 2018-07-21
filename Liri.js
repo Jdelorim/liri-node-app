@@ -31,7 +31,13 @@ function begInput(){
 }
 
 function getTweets(){
-    client.get('statuses/user_timeline', { screen_name: 'JoshuaDeLorimi1', count: 20},function(error,tweets,response){
+    var userAcc = songName;
+    if(userAcc === undefined){
+        userAcc = 'JoshuaDeLorimi1';
+    } else {
+        userAcc = process.argv[3];    
+    }
+    client.get('statuses/user_timeline', { screen_name: userAcc, count: 20},function(error,tweets,response){
         for(var i =0; i<20; i++){
     console.log(JSON.stringify(tweets[i].text,null,2));
         }
@@ -70,7 +76,18 @@ function getMovie(){
 //  console.log('error:', error); // Print the error if one occurred
 //  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   //console.log('body:', JSON.parse(body)); // Print the HTML for the Google homepage.
-  console.log('body:', JSON.parse(body));
+  //console.log('body:', JSON.parse(body));
+  console.log("The Name of the Movie is: ",JSON.parse(body).Title);
+  console.log("The Movie came out in ",JSON.parse(body).Year);
+  console.log("The Name of the Movie is: ",JSON.parse(body).imdbRating);
+  console.log("The Rotten Tomatoes Rating is: ",JSON.parse(body).Ratings[1].Value);
+  console.log("The Actors in the Movie are: ",JSON.parse(body).Actors);
+  console.log("The Plot of the Movie is: ",JSON.parse(body).Plot);
+  console.log("The Language spoke in the Movie is: ",JSON.parse(body).Language);
+  console.log("The Movie was made in: ",JSON.parse(body).Country);
+
+
+
 });
 
 }
